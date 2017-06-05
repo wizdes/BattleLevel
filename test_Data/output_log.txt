@@ -1,0 +1,41 @@
+Initialize engine version: 5.6.0f3 (497a0f351392)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 660 (ID=0x11c0)
+    Vendor:   NVIDIA
+    VRAM:     2016 MB
+    Driver:   22.21.13.8205
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\yjli\Documents\GitHub\BattleLevel\test_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\yjli\Documents\GitHub\BattleLevel\test_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\yjli\Documents\GitHub\BattleLevel\test_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\yjli\Documents\GitHub\BattleLevel\test_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\yjli\Documents\GitHub\BattleLevel\test_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\yjli\Documents\GitHub\BattleLevel\test_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\yjli\Documents\GitHub\BattleLevel\test_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\yjli\Documents\GitHub\BattleLevel\test_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\yjli\Documents\GitHub\BattleLevel\test_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\yjli\Documents\GitHub\BattleLevel\test_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.016 seconds
+Platform assembly: C:\Users\yjli\Documents\GitHub\BattleLevel\test_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\yjli\Documents\GitHub\BattleLevel\test_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 3840x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.280904 ms
+NullReferenceException: Object reference not set to an instance of an object
+  at GameManager.InitGame () [0x00000] in <filename unknown>:0 
+  at GameManager.Awake () [0x00000] in <filename unknown>:0 
+UnityEngine.Object:Internal_CloneSingle(Object)
+UnityEngine.Object:Instantiate(GameObject)
+Loader:Awake()
+ 
+(Filename:  Line: -1)
+
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 2e94 -> priority: 1 
+  Thread -> id: 3614 -> priority: 1 
+  Thread -> id: 508c -> priority: 1 
+  Thread -> id: 40c0 -> priority: 1 

@@ -41,8 +41,10 @@ public class GameManager : MonoBehaviour
     //Initializes the game for each level.
     void InitGame()
     {
-        //Call the SetupScene function of the BoardManager script, pass it current level number.
-        boardScript.SetupScene(level);
-
+        if(boardScript != null)
+        {
+            //Call the SetupScene function of the BoardManager script, pass it current level number.
+            boardScript.SetupScene(level);
+        }
     }
 }

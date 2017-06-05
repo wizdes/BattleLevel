@@ -52,6 +52,19 @@
          "tilecount":168,
          "tileheight":16,
          "tilewidth":16
+        }, 
+        {
+         "columns":36,
+         "firstgid":1609,
+         "image":"tth_armies_1_1.png",
+         "imageheight":576,
+         "imagewidth":576,
+         "margin":0,
+         "name":"units",
+         "spacing":0,
+         "tilecount":1296,
+         "tileheight":16,
+         "tilewidth":16
         }],
  "tilewidth":16,
  "version":1,

@@ -6,6 +6,9 @@
  <tileset firstgid="1441" name="objects" tilewidth="16" tileheight="16" tilecount="168" columns="24">
   <image source="Objects.png" width="384" height="112"/>
  </tileset>
+ <tileset firstgid="1609" name="units" tilewidth="16" tileheight="16" tilecount="1296" columns="36">
+  <image source="tth_armies_1_1.png" width="576" height="576"/>
+ </tileset>
  <layer name="Ground" width="16" height="9">
   <data encoding="csv">
 49,49,49,49,49,49,50,49,49,49,49,49,102,4,4,4,
@@ -30,6 +33,19 @@
 0,0,0,0,0,6,0,0,0,0,0,5,1541,0,0,0,
 0,0,1446,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,591,0,0,0,0,0,591,0,0,0,0
+</data>
+ </layer>
+ <layer name="Units" width="16" height="9">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,2509,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,2509,0,2509,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,2305,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
 </map>
