@@ -6,6 +6,8 @@ using UnityEngine;
 public class KnightScript : MovingObject
 {
     public GameObject mainObject;
+
+    private bool isSelected;
     private Animator animator;
     private SpriteRenderer sprite;
     private bool starto;
@@ -44,6 +46,66 @@ public class KnightScript : MovingObject
             animator.speed = 1.0f;
         }
 
+        if (!isSelected && (position.x >= transform.position.x && position.x < transform.position.x + 1)
+            && (position.y >= transform.position.y && position.y < transform.position.y + 1)){
+            isSelected = true;
+        }
+
+		if (isSelected && !((position.x >= transform.position.x && position.x < transform.position.x + 1)
+                            && (position.y >= transform.position.y && position.y < transform.position.y + 1))){
+            int xDiff = (int)(position.x - transform.position.x);
+            int yDiff = (int)(position.y - transform.position.y);
+
+			List<Tuple<int, int>> movements = new List<Tuple<int, int>>();
+			Tuple<int, int> x = new Tuple<int, int>(0, 1);
+			movements.Add(x);
+			x = new Tuple<int, int>(1, 0);
+			movements.Add(x);
+
+			while (xDiff != 0 && yDiff != 0)
+            {
+                xDiff = AddMovement(xDiff, movements, true);
+                yDiff = AddMovement(yDiff, movements, false);
+            }
+
+
+            Move(movements);
+            isSelected = false;
+        }
+
+        HandleTouchMouseInput();
+    }
+
+    private static int AddMovement(int increment, List<Tuple<int, int>> movements, bool isX)
+    {
+        if (increment > 0)
+        {
+            if(isX){
+				movements.Add(new Tuple<int, int>(1, 0));
+            }
+            else{
+                movements.Add(new Tuple<int, int>(0, 1));
+            }
+            increment--;
+        }
+        else
+        {
+			if (isX)
+			{
+				movements.Add(new Tuple<int, int>(-1, 0));
+			}
+			else
+			{
+				movements.Add(new Tuple<int, int>(0, -1));
+			}
+			increment++;
+        }
+
+        return increment;
+    }
+
+    private void HandleTouchMouseInput()
+    {
         foreach (Touch touch in Input.touches)
         {
             HandleTouch(touch.fingerId, Camera.main.ScreenToWorldPoint(touch.position), touch.phase);
@@ -65,9 +127,6 @@ public class KnightScript : MovingObject
                 HandleTouch(10, Camera.main.ScreenToWorldPoint(Input.mousePosition), TouchPhase.Ended);
             }
         }
-
-        // remove, since this is unnecessary
-        // PerformKeyMovements();
     }
 
     private void HandleTouch(int touchFingerId, Vector3 touchPosition, TouchPhase touchPhase)
@@ -75,12 +134,8 @@ public class KnightScript : MovingObject
         switch (touchPhase)
         {
             case TouchPhase.Began:
-                if(position.x == -1 && position.y == -1)
-                {
-                    position = touchPosition;
-                }
-                // TODO
-                break;
+				position = touchPosition;
+				break;
             case TouchPhase.Moved:
                 // TODO
                 break;
