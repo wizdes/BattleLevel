@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,9 +24,6 @@ public class KnightScript : MovingObject
     // Update is called once per frame
     void Update()
     {
-        // remove once we complete the touch interface
-        CreateInitialMovement();
-
         //If it's not the player's turn, exit the function.
         if (this.isMoving)
         {
@@ -46,23 +42,26 @@ public class KnightScript : MovingObject
             animator.speed = 1.0f;
         }
 
-        if (!isSelected && (position.x >= transform.position.x && position.x < transform.position.x + 1)
-            && (position.y >= transform.position.y && position.y < transform.position.y + 1)){
+        if (!isSelected && Util.IsTouchEquivalent(position.x, transform.position.x)
+            && Util.IsTouchEquivalent(position.y, transform.position.y))
+        {
             isSelected = true;
+            animator.speed = 2.0f;
         }
 
-		if (isSelected && !((position.x >= transform.position.x && position.x < transform.position.x + 1)
-                            && (position.y >= transform.position.y && position.y < transform.position.y + 1))){
+        if (isSelected && !(Util.IsTouchEquivalent(position.x, transform.position.x)
+                            && Util.IsTouchEquivalent(position.y, transform.position.y)))
+        {
             int xDiff = (int)(position.x - transform.position.x);
             int yDiff = (int)(position.y - transform.position.y);
 
-			List<Tuple<int, int>> movements = new List<Tuple<int, int>>();
-			Tuple<int, int> x = new Tuple<int, int>(0, 1);
-			movements.Add(x);
-			x = new Tuple<int, int>(1, 0);
-			movements.Add(x);
+            List<Tuple<int, int>> movements = new List<Tuple<int, int>>();
+            Tuple<int, int> x = new Tuple<int, int>(0, 1);
+            movements.Add(x);
+            x = new Tuple<int, int>(1, 0);
+            movements.Add(x);
 
-			while (xDiff != 0 && yDiff != 0)
+            while (xDiff != 0 && yDiff != 0)
             {
                 xDiff = AddMovement(xDiff, movements, true);
                 yDiff = AddMovement(yDiff, movements, false);
@@ -71,6 +70,7 @@ public class KnightScript : MovingObject
 
             Move(movements);
             isSelected = false;
+            animator.speed = 1.0f;
         }
 
         HandleTouchMouseInput();
@@ -167,20 +167,6 @@ public class KnightScript : MovingObject
         {
             AddAnimation(horizontal, vertical);
             Move(horizontal, vertical);
-        }
-    }
-
-    private void CreateInitialMovement()
-    {
-        if (starto == false)
-        {
-            List<Tuple<int, int>> movements = new List<Tuple<int, int>>();
-            Tuple<int, int> x = new Tuple<int, int>(0, 1);
-            movements.Add(x);
-            x = new Tuple<int, int>(1, 0);
-            movements.Add(x);
-            Move(movements);
-            starto = true;
         }
     }
 
