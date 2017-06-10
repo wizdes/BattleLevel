@@ -2,7 +2,7 @@
 {
 	public static bool IsTouchEquivalent(float touch, float objectPosition)
 	{
-		return (touch >= objectPosition && touch < objectPosition + 1);
+		return (touch >= objectPosition - 0.5f && touch < objectPosition + 0.5f);
 	}
 
 }

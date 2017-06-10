@@ -54,8 +54,8 @@ public class KnightScript : MovingObject
         if (isSelected && !(Util.IsTouchEquivalent(position.x, transform.position.x)
                             && Util.IsTouchEquivalent(position.y, transform.position.y)))
         {
-            int xDiff = (int)(position.x - transform.position.x);
-            int yDiff = (int)(position.y - transform.position.y);
+            int xDiff = CalculatePositionDifference(position.x, transform.position.x);
+            int yDiff = CalculatePositionDifference(position.y, transform.position.y);
 
             List<Tuple<int, int>> movements = new List<Tuple<int, int>>();
 
@@ -65,12 +65,20 @@ public class KnightScript : MovingObject
                 yDiff = AddMovement(yDiff, movements, false);
             }
 
-
             Move(movements);
             isSelected = false;
             position = new Vector3(-1, -1);
             animator.speed = 1.0f;
         }
+    }
+
+    private int CalculatePositionDifference(float toucchPositionDim, float objectPositionDim)
+    {
+        float xcalcPosition = objectPositionDim;
+        if (toucchPositionDim > objectPositionDim) xcalcPosition -= 0.5f;
+        else xcalcPosition += 0.5f;
+
+        return (int)(toucchPositionDim - xcalcPosition);
     }
 
     private static int AddMovement(int increment, List<Tuple<int, int>> movements, bool isX)
@@ -131,8 +139,8 @@ public class KnightScript : MovingObject
         switch (touchPhase)
         {
             case TouchPhase.Began:
-				position.x = touchPosition.x + 0.5f;
-                position.y = touchPosition.y + 0.5f;
+				position.x = touchPosition.x;
+                position.y = touchPosition.y;
                 break;
             case TouchPhase.Moved:
                 // TODO
