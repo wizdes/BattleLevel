@@ -4,5 +4,4 @@
 	{
 		return (touch >= objectPosition - 0.5f && touch < objectPosition + 0.5f);
 	}
-
 }

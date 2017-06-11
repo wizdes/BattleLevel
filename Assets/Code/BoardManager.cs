@@ -10,6 +10,7 @@ public class BoardManager : MonoBehaviour {
     public GameObject[] objectTiles;
 
     public GameObject playerUnit;
+    public GameObject squareUnit;
 
     private int columns = 16;
     private int rows = 9;
@@ -43,7 +44,7 @@ public class BoardManager : MonoBehaviour {
                 int mappedTerrainValue = terrainValue;
 
                 GameObject toInstantiate = floorTiles[mappedTerrainValue];
-                GameObject instance = Instantiate(toInstantiate, new Vector3(x, rows - y - 1, 2f), Quaternion.identity) as GameObject;
+                GameObject instance = Instantiate(toInstantiate, new Vector3(x, rows - y - 1, 3f), Quaternion.identity) as GameObject;
 
                 instance.transform.SetParent(boardHolder);
 
@@ -65,7 +66,7 @@ public class BoardManager : MonoBehaviour {
                         ObjectToInstantiate = floorTiles[objectValue];
                     }
 
-                    GameObject ObjectInstance = Instantiate(ObjectToInstantiate, new Vector3(x, rows - y - 1, 1f), Quaternion.identity) as GameObject;
+                    GameObject ObjectInstance = Instantiate(ObjectToInstantiate, new Vector3(x, rows - y - 1, 2f), Quaternion.identity) as GameObject;
 
                     ObjectInstance.transform.SetParent(boardHolder);
                 }

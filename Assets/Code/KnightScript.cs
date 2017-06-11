@@ -4,21 +4,60 @@ using UnityEngine;
 
 public class KnightScript : MovingObject
 {
-    public GameObject mainObject;
-
     private bool isSelected;
     private Animator animator;
     private SpriteRenderer sprite;
-    private bool starto;
+    private int range;
+    public GameObject squareUnit;
 
     private Vector3 position;
+    private List<GameObject> createdSquares;
 
     public override void Start()
     {
-        position = new Vector3(-1,-1);
+        range = 3;
+        position = new Vector3(-1, -1);
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        createdSquares = new List<GameObject>();
         base.Start();
+    }
+
+    private void DrawMovementRange()
+    {
+        for (int i = 0; i < range; i++)
+        {
+            for (int j = 0; j < range; j++)
+            {
+                // outside the range; no need to be considered
+                if ((i + j > range - 1) || (i == 0 && j == range) || (j == 0 && i == range))
+                {
+                    continue;
+                }
+
+                // boundary check
+                HashSet<int> markedSquare = new HashSet<int>();
+
+                foreach (var xMulti in new int[] { -1, 1 })
+                {
+                    foreach (var yMulti in new int[] { -1, 1 })
+                    {
+                        int markedSquareValue = (int)(transform.position.x + xMulti * i + 100 * (transform.position.y + yMulti * j));
+                        if (transform.position.x + xMulti * i >= 0 && transform.position.x + xMulti * i < 16
+                            && transform.position.y + yMulti * j >= 0 && transform.position.y + yMulti * j < 9
+                            && !markedSquare.Contains(markedSquareValue))
+                        {
+                            GameObject SquareInstance = Instantiate(
+                                squareUnit,
+                                new Vector3(transform.position.x + xMulti * i, transform.position.y + yMulti * j, 1f), Quaternion.identity) as GameObject;
+                            SquareInstance.transform.SetParent(transform);
+                            createdSquares.Add(SquareInstance);
+                            markedSquare.Add(markedSquareValue);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // Update is called once per frame
@@ -49,6 +88,7 @@ public class KnightScript : MovingObject
         {
             isSelected = true;
             animator.speed = 2.0f;
+            DrawMovementRange();
         }
 
         if (isSelected && !(Util.IsTouchEquivalent(position.x, transform.position.x)
@@ -69,6 +109,10 @@ public class KnightScript : MovingObject
             isSelected = false;
             position = new Vector3(-1, -1);
             animator.speed = 1.0f;
+            foreach(var createdSquare in createdSquares)
+            {
+                Destroy(createdSquare);
+            }
         }
     }
 
