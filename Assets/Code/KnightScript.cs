@@ -437,8 +437,10 @@ public class KnightScript : MovingObject
                 rotationQuaternion = Quaternion.FromToRotation(Vector3.up, Vector3.right);
                 break;
 			case 2:
-				rotationQuaternion = Quaternion.FromToRotation(Vector3.up, Vector3.down);
-				break;
+				//rotationQuaternion = Quaternion.FromToRotation(Vector3.up, Vector3.down);
+                flipX = true;
+                flipY = true;
+                break;
 			case 3:
 				rotationQuaternion = Quaternion.FromToRotation(Vector3.up, Vector3.left);
 				break;
