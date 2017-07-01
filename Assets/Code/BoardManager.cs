@@ -12,6 +12,20 @@ public class BoardManager : MonoBehaviour {
     public GameObject playerUnit;
     public GameObject squareUnit;
 
+	public static List<string> collisionCoordinateMap;
+
+	public int[] collisionMarkers = new int[]{
+		49,
+		50,
+		102,
+		51,
+		52,
+		146,
+		99,
+		200,
+		1518,
+	};
+
     private int columns = 16;
     private int rows = 9;
     private Transform boardHolder;
@@ -31,12 +45,20 @@ public class BoardManager : MonoBehaviour {
         string[] battleMap = File.ReadAllLines("Assets/SpriteMap/ReadBattleMap1.txt");
         string[] terrainMap = battleMap[0].Split(',');
         string[] objectMap = battleMap[1].Split(',');
+		collisionCoordinateMap = new List<string> ();
 
         for (int y = 0; y < rows; y++){
             for (int x = 0; x < columns; x++){
 
                 // read the number and put it here
                 int terrainValue = int.Parse(terrainMap[y * columns + x]);
+
+				for (int i = 0; i < collisionMarkers.Length; i++) {
+					if (collisionMarkers [i] == terrainValue) {
+						collisionCoordinateMap.Add (x + "," + y);
+						break;
+					}
+				}
 
                 terrainValue -= 1;
 

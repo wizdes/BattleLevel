@@ -1,4 +1,4 @@
-﻿﻿using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -61,6 +61,20 @@ public class KnightScript : MovingObject
                             && transform.position.y + yMulti * j >= 0 && transform.position.y + yMulti * j < 9
                             && !markedSquare.Contains(markedSquareValue))
                         {
+							bool skip = false;
+							//skip if it's a collision
+							foreach (string collisionMarker in BoardManager.collisionCoordinateMap) {
+								int xCollideVal = int.Parse (collisionMarker.Split (',') [0]);
+								int yCollideVal = int.Parse (collisionMarker.Split (',') [1]);
+
+								if (xCollideVal == (int) transform.position.x + xMulti * i && 9 - yCollideVal -1 == (int) transform.position.y + yMulti * j) {
+									skip = true;
+								}
+							}
+
+							if (skip)
+								continue;
+
                             GameObject SquareInstance = Instantiate(
                                 squareUnit,
                                 new Vector3(transform.position.x + xMulti * i, transform.position.y + yMulti * j, 1f), Quaternion.identity) as GameObject;
