@@ -45,6 +45,7 @@ public class BoardManager : MonoBehaviour {
         string[] battleMap = File.ReadAllLines("Assets/SpriteMap/ReadBattleMap1.txt");
         string[] terrainMap = battleMap[0].Split(',');
         string[] objectMap = battleMap[1].Split(',');
+        string[] unitMap = battleMap[2].Split(',');
 		collisionCoordinateMap = new List<string> ();
 
         for (int y = 0; y < rows; y++){
@@ -92,12 +93,33 @@ public class BoardManager : MonoBehaviour {
 
                     ObjectInstance.transform.SetParent(boardHolder);
                 }
+
+                // read the number and put it here
+                int unitValue = int.Parse(unitMap[y * columns + x]);
+
+                if (unitValue != 0)
+                {
+                    if (unitValue > 1609)
+                    {
+                        unitValue = unitValue - 1441;
+                    }
+                    else
+                    {
+                        unitValue -= 1;
+                    }
+
+                    //use the unit values to determine which unit to push
+                    // create 3 player units
+                    GameObject ObjectInstance = Instantiate(playerUnit, new Vector3(x, rows - y - 1, 0f), Quaternion.identity) as GameObject;
+
+                    ObjectInstance.transform.SetParent(boardHolder);
+                }
             }
         }
 
         // place the main hero at 1,1
-        GameObject PlayerInstance = Instantiate(playerUnit, new Vector3(1, 1, 0f), Quaternion.identity) as GameObject;
-        PlayerInstance.transform.SetParent(boardHolder);
+        // GameObject PlayerInstance = Instantiate(playerUnit, new Vector3(1, 1, 0f), Quaternion.identity) as GameObject;
+        // PlayerInstance.transform.SetParent(boardHolder);
     }
 
     public void SetupScene(int level){
