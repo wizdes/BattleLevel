@@ -7,7 +7,7 @@ public class KnightScript : MovingObject
     private bool isSelected;
     private Animator animator;
     private SpriteRenderer sprite;
-    private int range;
+    public int range;
     public GameObject squareUnit;
 
     public GameObject[] arrowUnits;
@@ -25,7 +25,6 @@ public class KnightScript : MovingObject
 
     public override void Start()
     {
-        range = 4;
         selectState = 0;
         selectedMovement = new Tuple<int, int>(-99,  -99);
         position = new Vector3(-1, -1);

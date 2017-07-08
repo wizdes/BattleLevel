@@ -10,6 +10,8 @@ public class BoardManager : MonoBehaviour {
     public GameObject[] objectTiles;
 
     public GameObject playerUnit;
+	public GameObject archerUnit;
+	public GameObject soldierUnit;
     public GameObject squareUnit;
 
 	public static List<string> collisionCoordinateMap;
@@ -101,16 +103,26 @@ public class BoardManager : MonoBehaviour {
                 {
                     if (unitValue > 1609)
                     {
-                        unitValue = unitValue - 1441;
+                        unitValue = unitValue - 1609;
                     }
                     else
                     {
                         unitValue -= 1;
                     }
 
+					GameObject gameUnitToUse = null;
+
+					if (unitValue % 3 == 0) {
+						gameUnitToUse = playerUnit;
+					} else if (unitValue % 3 == 1) {
+						gameUnitToUse = soldierUnit;
+					} else {
+						gameUnitToUse = archerUnit;
+					}
+						
                     //use the unit values to determine which unit to push
                     // create 3 player units
-                    GameObject ObjectInstance = Instantiate(playerUnit, new Vector3(x, rows - y - 1, 0f), Quaternion.identity) as GameObject;
+					GameObject ObjectInstance = Instantiate(gameUnitToUse, new Vector3(x, rows - y - 1, 0f), Quaternion.identity) as GameObject;
 
                     ObjectInstance.transform.SetParent(boardHolder);
                 }
