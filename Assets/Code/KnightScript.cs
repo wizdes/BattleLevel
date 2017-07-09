@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class KnightScript : MovingObject
 {
+	private bool isAttack = true;
     private bool isSelected;
     private Animator animator;
     private SpriteRenderer sprite;
     public int range;
+	public int attackRange;
     public GameObject squareUnit;
 
     public GameObject[] arrowUnits;
@@ -36,14 +38,20 @@ public class KnightScript : MovingObject
 		base.Start();
     }
 
-    private void DrawMovementRange()
+    private void DrawRange()
     {
-        for (int i = 0; i < range; i++)
+		int chosenRange = range;
+
+		if (isAttack) {
+			chosenRange = attackRange;
+		}
+
+        for (int i = 0; i < chosenRange; i++)
         {
-            for (int j = 0; j < range; j++)
+			for (int j = 0; j < chosenRange; j++)
             {
                 // outside the range; no need to be considered
-                if ((i + j > range - 1) || (i == 0 && j == range) || (j == 0 && i == range))
+				if ((i + j > chosenRange - 1) || (i == 0 && j == chosenRange) || (j == 0 && i == chosenRange))
                 {
                     continue;
                 }
@@ -116,12 +124,30 @@ public class KnightScript : MovingObject
             isSelected = true;
             selectState = 1;
             animator.speed = 2.0f;
-            DrawMovementRange();
+            DrawRange();
         }
 
         if (isSelected && !(Util.IsTouchEquivalent(position.x, transform.position.x)
                             && Util.IsTouchEquivalent(position.y, transform.position.y)))
         {
+			if (isAttack) {
+				// perform attack instead
+
+				GameObject toRemove = null;
+				foreach (var unit in BoardManager.units) {
+					if (Util.IsTouchEquivalent (position.x, unit.transform.position.x) &&
+					   Util.IsTouchEquivalent (position.y, unit.transform.position.y)) {
+						toRemove = unit;
+					}
+				}
+
+				BoardManager.units.Remove (toRemove);
+
+				Destroy (toRemove);
+
+				return;
+			}
+
             int xDiff = CalculatePositionDifference(position.x, transform.position.x);
             int yDiff = CalculatePositionDifference(position.y, transform.position.y);
 

@@ -14,6 +14,8 @@ public class BoardManager : MonoBehaviour {
 	public GameObject soldierUnit;
     public GameObject squareUnit;
 
+	public static List<GameObject> units;
+
 	public static List<string> collisionCoordinateMap;
 
 	public int[] collisionMarkers = new int[]{
@@ -39,6 +41,7 @@ public class BoardManager : MonoBehaviour {
     // turn off anti-aliasing for pixel games
 
     void BoardSetup(){
+		units = new List<GameObject> ();
         boardHolder = new GameObject("Board").transform;
 
         // read the numbers from the XML (print?)
@@ -123,6 +126,7 @@ public class BoardManager : MonoBehaviour {
                     //use the unit values to determine which unit to push
                     // create 3 player units
 					GameObject ObjectInstance = Instantiate(gameUnitToUse, new Vector3(x, rows - y - 1, 0f), Quaternion.identity) as GameObject;
+					units.Add (ObjectInstance);
 
                     ObjectInstance.transform.SetParent(boardHolder);
                 }
